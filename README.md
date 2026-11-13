@@ -6,6 +6,8 @@
 
 - **Steam integrado de fábrica**, incluindo sincronização de conta e biblioteca (via Bazzite);
 - **[RecompLauncher](https://github.com/elripalda/RecompLauncher)** nativo (AppImage empacotado na imagem, integrado ao Steam via "Add to Steam" e ao Big Picture), para jogar os **recompilados da comunidade** (N64Recomp etc.);
+- **Proton nativo** para jogos Windows do Steam (já integrado; nada a instalar — basta *Configurações → Compatibilidade → Habilitar Steam Play*);
+- **[Heroic Games Launcher](https://heroicgameslauncher.com)** (Epic/GOG/Amazon) via Flatpak, usando Proton por baixo — instalado pela ISO, com botão "Add to Steam" por jogo para jogar tudo no Big Picture;
 - **Emuladores**: RetroArch nativo + [RetroDECK](https://flathub.org/apps/net.retrodeck.retrodeck) via Flatpak no instalador, com interface orientada a controle;
 - **Experiência de console**: boot para KDE com Steam Big Picture em tela cheia; para ir ao desktop: Quick Access (botão Xbox/Guide) → **Exit to Desktop** ou `Ctrl+Alt+F2` no teclado. O desktop mode fica acessível a qualquer momento, como no SteamOS.
 
@@ -88,6 +90,19 @@ just build-iso localhost/consol-os latest  # gera a ISO via bootc-image-builder
 3. **Primeiro boot**: o Big Picture abre automaticamente. Para desativar: Configurações do Sistema → Inicialização automática → desative "Steam Big Picture", ou remova `/etc/xdg/autostart/consol-bigpicture.desktop` (com sudo, modo desktop).
 4. **Controle**: em Big Picture e no RetroDECK e no RecompLauncher (Big Picture mode próprio), tudo navega com o controle.
 5. **Modo desktop**: Quick Access → Exit to Desktop, ou `Steam+B`/botão do menu → sair do Big Picture. No desktop, use mouse e teclado normalmente.
+
+### Jogos Windows (Proton e Heroic)
+
+**Steam:** Configurações → Compatibilidade → *Habilitar Steam Play para todos os outros títulos* (Proton é a camada de compatibilidade do Steam; já vem integrado — nada a instalar). Títulos Windows da sua biblioteca passam a mostrar **Instalar** normalmente.
+
+**Fora do Steam (Epic, GOG, Amazon):** abra o **Heroic Games Launcher** (instalado pela ISO, no menu Aplicativos):
+
+1. Faça login na sua conta Epic/GOG/Amazon
+2. Os jogos aparecem na biblioteca do Heroic
+3. O Heroic usa o Proton do sistema por baixo (ou baixa o GE-Proton em *Settings → Game Defaults*)
+4. Por jogo, clique em **Add to Steam** — ele vira atalho do Big Picture com arte
+
+> Suspense/resume e desempenho variam por jogo Windows. Via Proton ainda não existe Quick Resume garantido — testamos antes de recomendar na página do projeto.
 
 ## Visual (marca Consol OS, estilo console)
 

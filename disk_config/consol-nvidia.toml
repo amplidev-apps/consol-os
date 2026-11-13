@@ -16,6 +16,11 @@ flatpak remote-add --system --if-not-exists flathub https://flathub.org/repo/fla
 # e dá para instalar depois em qualquer terminal:
 #   flatpak install flathub net.retrodeck.retrodeck
 flatpak install --system --noninteractive flathub net.retrodeck.retrodeck || true
+
+# Heroic Games Launcher: jogos Windows da Epic/GOG/Amazon fora do Steam,
+# executados via Proton (nativo no Linux, controle-friendly).
+# Melhor-esforço, como acima: instalação do Flathub.
+flatpak install --system --noninteractive flathub com.heroicgameslauncher.hgl || true
 %end
 """
 
