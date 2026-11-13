@@ -57,7 +57,9 @@ jobs:
 
       - name: Compilar (frontend + backend)
         working-directory: src/dashboard
-        run: npm run tauri build -- --bundles deb,rpm,appimage
+        # Só .deb por enquanto: o bundler de AppImage baixa ferramentas
+        # externas em build-time e falha em rede lenta.
+        run: npm run tauri build -- --bundles deb
 
       - name: Upload dos pacotes
         uses: actions/upload-artifact@v4
@@ -65,7 +67,5 @@ jobs:
           name: consol-home-linux-${{ github.run_number }}
           path: |
             src/dashboard/src-tauri/target/release/bundle/deb/*.deb
-            src/dashboard/src-tauri/target/release/bundle/rpm/*.rpm
-            src/dashboard/src-tauri/target/release/bundle/appimage/*.AppImage
           if-no-files-found: error
           retention-days: 14

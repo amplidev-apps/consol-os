@@ -32,7 +32,6 @@ fn find_value<'a>(kv: &'a Kv, key: &str) -> Option<&'a str> {
 
 /// Parser mínimo de KeyValues em texto (appmanifest / libraryfolders).
 fn parse_kv(input: &str) -> Kv {
-    let mut root = Kv::default();
     let mut stack: Vec<Kv> = vec![Kv::default()];
     let mut pending_name = String::new();
 
@@ -52,10 +51,13 @@ fn parse_kv(input: &str) -> Kv {
             }
             if tok == "}" {
                 if let Some(done) = stack.pop() {
-                    if let Some(parent) = stack.last_mut() {
-                        parent.children.entry(pending_name.clone()).or_default().push(done);
-                    } else {
-                        root = done;
+                    let name = std::mem::take(&mut pending_name);
+                    match stack.last_mut() {
+                        Some(parent) => {
+                            parent.children.entry(name).or_default().push(done);
+                        }
+                        // Chave-raiz fechou: devolve o nó diretamente.
+                        None => return done,
                     }
                 }
                 pending_name.clear();
@@ -77,7 +79,8 @@ fn parse_kv(input: &str) -> Kv {
             i = next;
         }
     }
-    root
+    // Arquivos bem formados sempre fecham o último bloco ao final.
+    stack.pop().unwrap_or_default()
 }
 
 fn unquote(tok: &str) -> String {
