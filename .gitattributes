@@ -1,0 +1,4 @@
+# Scripts e configs de build precisam de LF (o build acontece em Linux)
+* text=auto eol=lf
+*.png binary
+*.svg text eol=lf
