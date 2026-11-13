@@ -19,10 +19,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        uses: actions/checkout@v7
 
       - name: Configurar Node.js
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b07e2c25338 # v5
+        uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
@@ -43,7 +43,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Cache do cargo
-        uses: actions/cache@040cfd01517090972f6dcc5d8a4b100fda950e67 # v5
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/registry
@@ -60,7 +60,7 @@ jobs:
         run: npm run tauri build -- --bundles deb,rpm,appimage
 
       - name: Upload dos pacotes
-        uses: actions/upload-artifact@ad168a1550f66df9e0f9be5e0d2b69a0b52217f2 # v4
+        uses: actions/upload-artifact@v4
         with:
           name: consol-home-linux-${{ github.run_number }}
           path: |
