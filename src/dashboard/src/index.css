@@ -1,0 +1,358 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@400;500;600&display=swap");
+
+:root {
+  --bg: #0a0a0a;
+  --bg-2: #161616;
+  --bg-3: #1e1e1e;
+  --green: #107c10;
+  --green-hi: #9bf00b;
+  --text: #eeeeee;
+  --text-dim: #8ed08e;
+  --text-faint: #6f6f6f;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Barlow", "Noto Sans", system-ui, sans-serif;
+}
+
+/* ===== Tela inteira ===== */
+.screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(16, 124, 16, 0.28), transparent 55%),
+    radial-gradient(900px 500px at -10% 110%, rgba(155, 240, 11, 0.07), transparent 50%),
+    var(--bg);
+}
+
+/* ===== Hero de fundo (item focado) ===== */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  background-color: var(--bg);
+  background-size: cover;
+  background-position: center 22%;
+}
+.hero-bg.visible {
+  opacity: 1;
+}
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(10, 10, 10, 0.97) 0%, rgba(10, 10, 10, 0.72) 38%, rgba(10, 10, 10, 0.1) 70%),
+    linear-gradient(0deg, rgba(10, 10, 10, 0.98) 0%, rgba(10, 10, 10, 0.15) 42%, rgba(10, 10, 10, 0.35) 100%);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 48px 20px;
+  gap: 18px;
+}
+
+/* ===== Barra superior ===== */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.brand svg {
+  width: 46px;
+  height: 46px;
+}
+.brand-name {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: 0.14em;
+  color: var(--text);
+}
+.brand-name span {
+  color: var(--green-hi);
+}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.clock {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+.topbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid #2a2a2a;
+  background: var(--bg-2);
+  color: var(--text-dim);
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.topbar-btn.focused {
+  border-color: var(--green-hi);
+  color: var(--green-hi);
+  background: #141a10;
+  box-shadow: 0 0 24px rgba(155, 240, 11, 0.25);
+}
+
+/* ===== Abas ===== */
+.tabs {
+  display: flex;
+  gap: 12px;
+}
+.tab {
+  padding: 10px 26px 12px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  color: var(--text-dim);
+  background: transparent;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.tab .count {
+  font-size: 15px;
+  color: var(--text-faint);
+  font-weight: 600;
+}
+.tab.active {
+  color: #0a0a0a;
+  background: var(--green-hi);
+}
+.tab.active .count {
+  color: #232900;
+}
+.tab.focused {
+  border-color: var(--green-hi);
+  box-shadow: 0 0 22px rgba(155, 240, 11, 0.25);
+}
+
+/* ===== Grade de jogos ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 18px;
+  align-content: start;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 6px;
+}
+.grid::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  position: relative;
+  aspect-ratio: 3 / 4.4;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bg-2);
+  border: 2px solid #232323;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card .fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px;
+  text-align: center;
+}
+.card .fallback svg {
+  width: 64px;
+  height: 64px;
+  opacity: 0.9;
+}
+.card .fallback .fallback-title {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.15;
+  color: var(--text);
+}
+.card .shade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 46%;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.92) 0%, transparent 100%);
+}
+.card .tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 3px 10px 4px;
+  border-radius: 6px;
+  background: rgba(10, 10, 10, 0.72);
+  border: 1px solid rgba(155, 240, 11, 0.35);
+  color: var(--green-hi);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.card .name {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 10px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--text);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+.card.focused {
+  transform: scale(1.08);
+  border-color: var(--green-hi);
+  box-shadow: 0 0 0 3px rgba(155, 240, 11, 0.35), 0 18px 44px rgba(0, 0, 0, 0.65);
+  z-index: 2;
+}
+
+/* Card de app (quadrado) */
+.card.appcard .app-icon {
+  position: absolute;
+  top: 18%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
+.card.appcard .app-icon svg {
+  width: 96px;
+  height: 96px;
+}
+
+/* ===== Barra inferior de metadados ===== */
+.meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 84px;
+  border-top: 1px solid #222222;
+  padding-top: 12px;
+  gap: 24px;
+}
+.meta-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.meta-title {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.meta-sub {
+  display: flex;
+  gap: 18px;
+  color: var(--text-dim);
+  font-size: 15px;
+}
+.meta-sub b {
+  color: var(--text);
+  font-weight: 600;
+}
+.meta-hint {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  color: var(--text-faint);
+  font-size: 14px;
+}
+.meta-hint .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid #2e2e2e;
+  background: var(--bg-2);
+  color: var(--text-dim);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.meta-hint .chip b {
+  color: var(--green-hi);
+}
+
+/* ===== Estado vazio ===== */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  height: 100%;
+  color: var(--text-faint);
+  text-align: center;
+}
+.empty h2 {
+  font-family: "Barlow Condensed", sans-serif;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}

@@ -121,6 +121,28 @@ Para trocar o visual depois: Configurações do Sistema → Aparência (global/c
 
 Assets: masters em `brand/` (SVG); derivar PNGs usados no build quando atualizar o master. Antes de publicar, recomenda-se pesquisa de conflito de marca (ver `brand/docs/README.md`).
 
+## Consol Home (em desenvolvimento — `src/dashboard/`)
+
+O **Consol Home** é a dash própria do Consol OS: uma interface de console em tela cheia, navegável por controle e mouse, que unifica **tudo o que você joga** numa única biblioteca:
+
+- 🎮 **Biblioteca** — seus jogos da Steam instalados (com arte oficial via CDN, em runtime; nada é redistribuído)
+- 🕹️ **Recompilados** — instalações e artes do RecompLauncher lidas localmente (`library.json`), com tempo jogado, última sessão e tamanho
+- 🧩 **Aplicativos** — Heroic (Epic/GOG/Amazon, jogos Windows via Proton) e RetroDECK (ES-DE) como apps integrados, sem abrir outra janela separada
+- ↩️ **Área de trabalho** — botão no topo (ou `Esc`/`≡`) volta para o desktop KDE a qualquer momento
+- Metadados ricos: hero art em foco, tamanho em disco, tempo jogado, última sessão — tudo local, sem telemetria
+
+**Navegação:** setas/D-pad movem o foco, `A`/`Enter` abre, `B`/`Esc` volta, `≡` (Start) ou `q` sai para a área de trabalho.
+
+**Build:** no Windows não há linker MSVC aqui — o app é compilado no CI (workflow **Build Consol Home**, gera `.deb`, `.rpm` e `.AppImage` como artefatos). Localmente, com as dependências do Tauri instaladas (`libwebkit2gtk-4.1-dev`, etc.):
+
+```bash
+cd src/dashboard
+npm ci
+npm run tauri build
+```
+
+**Integração na imagem (v0.2):** o binário será copiado para `/usr/bin/consol-home` com `.desktop` e substituirá o autostart do Big Picture — até lá, o Consol OS usa o Steam Big Picture como interface principal.
+
 ## Roadmap
 
 - [x] **v0.1** — imagem bootc baseada em bazzite-nvidia, RecompLauncher empacotado com SHA-256, RetroArch RPM, autostart Big Picture, ISO via CI

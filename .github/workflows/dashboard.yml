@@ -1,0 +1,71 @@
+name: Build Consol Home (dashboard)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/dashboard/**'
+      - '.github/workflows/dashboard.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Compilar Consol Home
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b07e2c25338 # v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: src/dashboard/package-lock.json
+
+      - name: Instalar dependências do sistema (Tauri)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libgtk-3-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            libsoup-3.0-dev \
+            libjavascriptcoregtk-4.1-dev
+
+      - name: Configurar Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache do cargo
+        uses: actions/cache@040cfd01517090972f6dcc5d8a4b100fda950e67 # v5
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            src/dashboard/src-tauri/target
+          key: cargo-${{ hashFiles('src/dashboard/src-tauri/Cargo.lock') }}
+
+      - name: Instalar dependências npm
+        working-directory: src/dashboard
+        run: npm ci
+
+      - name: Compilar (frontend + backend)
+        working-directory: src/dashboard
+        run: npm run tauri build -- --bundles deb,rpm,appimage
+
+      - name: Upload dos pacotes
+        uses: actions/upload-artifact@ad168a1550f66df9e0f9be5e0d2b69a0b52217f2 # v4
+        with:
+          name: consol-home-linux-${{ github.run_number }}
+          path: |
+            src/dashboard/src-tauri/target/release/bundle/deb/*.deb
+            src/dashboard/src-tauri/target/release/bundle/rpm/*.rpm
+            src/dashboard/src-tauri/target/release/bundle/appimage/*.AppImage
+          if-no-files-found: error
+          retention-days: 14
