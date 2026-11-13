@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Steam Big Picture
+Comment=Abre o Steam no modo Big Picture (experiência de console)
+# Remova este arquivo (ou desative em Configurações do Sistema > Inicialização automática)
+# para usar a área de trabalho normalmente.
+Exec=steam -bigpicture
+X-GNOME-Autostart-enabled=true
+X-KDE-autostart-after=panel
+NoDisplay=true

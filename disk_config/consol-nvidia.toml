@@ -1,0 +1,36 @@
+# ISO de instalação do Consol (KDE, NVIDIA)
+# Baseada no template do Universal Blue.
+# IMPORTANTE: troque "your-github-user" pelo seu usuário/org do GitHub,
+# o mesmo usado em consol.env (REPO_ORGANIZATION).
+
+[customizations.installer.kickstart]
+contents = """
+%post
+# Aponta o sistema instalado para a nossa imagem em vez da base Bazzite
+bootc switch --mutate-in-place --transport registry ghcr.io/your-github-user/consol:latest
+
+# Flathub (para RetroDECK e outros Flatpaks de emulação)
+flatpak remote-add --system --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo || true
+
+# RetroDECK: coleção completa de emuladores com interface por controle.
+# Instalação é melhor-esforço: se falhar, o sistema funciona mesmo assim
+# e dá para instalar depois em qualquer terminal:
+#   flatpak install flathub net.retrodeck.retrodeck
+flatpak install --system --noninteractive flathub net.retrodeck.retrodeck || true
+%end
+"""
+
+[customizations.installer.modules]
+enable = [
+  "org.fedoraproject.Anaconda.Modules.Storage",
+  "org.fedoraproject.Anaconda.Modules.Runtime",
+  "org.fedoraproject.Anaconda.Modules.Network",
+  "org.fedoraproject.Anaconda.Modules.Security",
+  "org.fedoraproject.Anaconda.Modules.Services",
+  "org.fedoraproject.Anaconda.Modules.Users",
+  "org.fedoraproject.Anaconda.Modules.Timezone"
+]
+
+disable = [
+  "org.fedoraproject.Anaconda.Modules.Subscription",
+]
