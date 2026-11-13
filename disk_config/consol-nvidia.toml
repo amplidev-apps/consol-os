@@ -1,13 +1,12 @@
 # ISO de instalação do Consol (KDE, NVIDIA)
 # Baseada no template do Universal Blue.
-# IMPORTANTE: troque "your-github-user" pelo seu usuário/org do GitHub,
-# o mesmo usado em consol.env (REPO_ORGANIZATION).
+# Imagem de destino: ghcr.io/amplidev-apps/consol-os:latest
 
 [customizations.installer.kickstart]
 contents = """
 %post
 # Aponta o sistema instalado para a nossa imagem em vez da base Bazzite
-bootc switch --mutate-in-place --transport registry ghcr.io/your-github-user/consol:latest
+bootc switch --mutate-in-place --transport registry ghcr.io/amplidev-apps/consol-os:latest
 
 # Flathub (para RetroDECK e outros Flatpaks de emulação)
 flatpak remote-add --system --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo || true

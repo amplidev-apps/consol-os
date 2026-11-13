@@ -46,17 +46,18 @@ consol.env                     # Nome/org da imagem (usado pelo Justfile e CI)
 
 ### Opção A — GitHub Actions (recomendado)
 
-1. Crie um repositório público no GitHub (ex.: `consol`) e dê push deste diretório.
-2. Troque `REPO_ORGANIZATION` em `consol.env` pelo seu usuário/org e `your-github-user` em `disk_config/consol-nvidia.toml` (kickstart).
-3. Faça push na branch `main`: o workflow **Build container image** compila e publica em `ghcr.io/<org>/consol:latest`.
+1. Repositório: `https://github.com/amplidev-apps/consol-os`. Faça push deste diretório na branch `main`.
+2. `REPO_ORGANIZATION` em `consol.env` já aponta para `amplidev-apps` e o kickstart (`disk_config/consol-nvidia.toml`) já referencia `ghcr.io/amplidev-apps/consol-os:latest`.
+3. O workflow **Build container image** compila e publica em `ghcr.io/amplidev-apps/consol-os:latest` a cada push na `main`.
 4. O workflow **Build disk images** gera a ISO (`anaconda-iso`) manualmente (aba *Actions → Build disk images → Run workflow*) e anexa como artefato.
+5. Depois do primeiro build, em `ghcr.io` → pacote `consol-os` → *Package settings*: marque o pacote como **público** para o `bootc switch` funcionar em máquinas frescas sem login.
 
 ### Opção B — Build local (Linux com podman)
 
 ```bash
 # na raiz do repositório
-just build localhost/consol latest   # compila a imagem
-just build-iso localhost/consol latest  # gera a ISO via bootc-image-builder
+just build localhost/consol-os latest   # compila a imagem
+just build-iso localhost/consol-os latest  # gera a ISO via bootc-image-builder
 ```
 
 > Windows não consegue compilar `bootc` localmente sem Linux. No Windows, desenvolva normalmente e deixe a compilação para o Actions (ou use WSL2 com podman).
