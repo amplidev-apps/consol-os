@@ -80,6 +80,20 @@ just build-iso localhost/consol-os latest  # gera a ISO via bootc-image-builder
 4. **Controle**: em Big Picture e no RetroDECK e no RecompLauncher (Big Picture mode próprio), tudo navega com o controle.
 5. **Modo desktop**: Quick Access → Exit to Desktop, ou `Steam+B`/botão do menu → sair do Big Picture. No desktop, use mouse e teclado normalmente.
 
+## Visual (estilo console "inspirado no Xbox Series")
+
+A identidade do Consol usa fundo quase preto com verde esmeralda — o mesmo clima visual da geração Xbox Series, porém com **artwork e marca 100% próprios** (não redistribuímos logo oficial, fontes ou ícones da Microsoft):
+
+- **Esquema de cores `Consol`** (`/usr/share/color-schemes/Consol.colors`): verde sobre preto em janelas, botões e seleções; aplicado systemwide via `/etc/xdg/kdeglobals` (ícones Breeze Dark, Plasma Dark);
+- **Papel de parede `Consol`** (`/usr/share/wallpapers/Consol/`): grades sutis + arcos concêntricos verdes com o wordmark — gerado por `build_files/generate_branding.py`;
+- **Tela de login**: SDDM com tema escuro (`/etc/sddm.conf.d/consol.conf`);
+- **Big Picture**: a interface principal do dia a dia já é a do console (Steam Big Picture) — navegação 100% por controle, sem mouse;
+- **RecompLauncher e RetroDECK** têm modos de tela cheia próprios orientados a controle.
+
+Para trocar o visual depois: Configurações do Sistema → Aparência (global/cor) ou remova `/etc/xdg/kdeglobals` para voltar ao padrão do Bazzite.
+
+Assets próprios: `generate_branding.py` (wallpaper + ícone) — rode-o com Python + Pillow para gerar variações.
+
 ## Roadmap
 
 - [x] **v0.1** — imagem bootc baseada em bazzite-nvidia, RecompLauncher empacotado com SHA-256, RetroArch RPM, autostart Big Picture, ISO via CI

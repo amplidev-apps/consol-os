@@ -1,0 +1,21 @@
+# Configuração global do KDE (systemwide) do Consol
+# Força o esquema de cores Consol (verde sobre preto) e ícones escuros
+# para todos os usuários. Cada usuário ainda pode trocar em
+# Configurações do Sistema > Aparência.
+
+[General]
+ColorScheme=Consol
+Name=Consol
+
+[Icons]
+Theme=breeze-dark
+
+[KDE]
+LookAndFeelPackage=org.kde.breezedark.desktop
+SingleClick=false
+
+[Plasma]
+theme=breeze-dark
+
+[WidgetStyle]
+name=Breeze
