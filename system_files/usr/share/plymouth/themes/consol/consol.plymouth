@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Consol OS
+Description=Boot splash escuro do Consol OS (marca Nexus)
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/consol
+ScriptFile=/usr/share/plymouth/themes/consol/consol.script

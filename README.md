@@ -1,6 +1,8 @@
-# Consol
+# Consol OS
 
-**Consol** é uma distro Linux **focada em jogos** — experiência de console (controle em toda a interface) com opção de modo desktop — baseada no [Bazzite](https://bazzite.gg) (Fedora Atomic, `bootc`), com:
+![Consol OS](brand/04-github/png/consol-readme-banner-1600x500.png)
+
+**Consol OS** é uma distro Linux **focada em jogos** — experiência de console (controle em toda a interface) com opção de modo desktop — baseada no [Bazzite](https://bazzite.gg) (Fedora Atomic, `bootc`), com:
 
 - **Steam integrado de fábrica**, incluindo sincronização de conta e biblioteca (via Bazzite);
 - **[RecompLauncher](https://github.com/elripalda/RecompLauncher)** nativo (AppImage empacotado na imagem, integrado ao Steam via "Add to Steam" e ao Big Picture), para jogar os **recompilados da comunidade** (N64Recomp etc.);
@@ -35,8 +37,15 @@ build_files/build.sh          # Instalação de pacotes e do RecompLauncher (SHA
 build_files/recomplauncher.sh # Wrapper sem FUSE (APPIMAGE_EXTRACT_AND_RUN=1)
 system_files/                 # Arquivos copiados na raiz da imagem (/)
   etc/xdg/autostart/consol-bigpicture.desktop   # Big Picture no login (removível)
+  etc/xdg/kdeglobals                            # esquema de cores Consol + ícones/Plasma escuros
+  etc/sddm.conf.d/consol.conf                   # tela de login escura (breeze-dark)
   usr/share/applications/recomplauncher.desktop
-  usr/share/icons/hicolor/...                   # ícone do RecompLauncher
+  usr/share/color-schemes/Consol.colors         # verde sobre preto
+  usr/share/icons/hicolor/                      # ícone consol-os (todas as escalas) + recomplauncher
+  usr/share/sddm/themes/consol/                 # tema próprio (incluído, desativado até teste na VM)
+  usr/share/plymouth/themes/consol/             # boot splash (incluído, não ativado)
+  usr/share/wallpapers/Consol/                  # wallpaper oficial (3 resoluções)
+brand/                        # identidade visual (masters SVG + PNGs + docs)
 disk_config/consol-nvidia.toml # Kickstart da ISO (bootc switch + Flathub + RetroDECK)
 disk_config/disk.toml          # Config de disco da imagem anaconda
 consol.env                     # Nome/org da imagem (usado pelo Justfile e CI)
@@ -80,24 +89,27 @@ just build-iso localhost/consol-os latest  # gera a ISO via bootc-image-builder
 4. **Controle**: em Big Picture e no RetroDECK e no RecompLauncher (Big Picture mode próprio), tudo navega com o controle.
 5. **Modo desktop**: Quick Access → Exit to Desktop, ou `Steam+B`/botão do menu → sair do Big Picture. No desktop, use mouse e teclado normalmente.
 
-## Visual (estilo console "inspirado no Xbox Series")
+## Visual (marca Consol OS, estilo console)
 
-A identidade do Consol usa fundo quase preto com verde esmeralda — o mesmo clima visual da geração Xbox Series, porém com **artwork e marca 100% próprios** (não redistribuímos logo oficial, fontes ou ícones da Microsoft):
+A marca **Consol OS** (conceito *Nexus*) usa fundo quase preto com verde esmeralda — o clima de uma geração recente de consoles, porém com **artwork e marca 100% próprios** (não redistribuímos logo oficial, fontes ou ícones da Microsoft/Xbox):
 
-- **Esquema de cores `Consol`** (`/usr/share/color-schemes/Consol.colors`): verde sobre preto em janelas, botões e seleções; aplicado systemwide via `/etc/xdg/kdeglobals` (ícones Breeze Dark, Plasma Dark);
-- **Papel de parede `Consol`** (`/usr/share/wallpapers/Consol/`): grades sutis + arcos concêntricos verdes com o wordmark — gerado por `build_files/generate_branding.py`;
-- **Tela de login**: SDDM com tema escuro (`/etc/sddm.conf.d/consol.conf`);
-- **Big Picture**: a interface principal do dia a dia já é a do console (Steam Big Picture) — navegação 100% por controle, sem mouse;
-- **RecompLauncher e RetroDECK** têm modos de tela cheia próprios orientados a controle.
+- **Pacote de identidade** em `brand/` (SVG master + PNGs): símbolo, wordmark, wallpaper, ícone de app, banner, avatar, social preview, assets de boot e instalador
+- **Esquema de cores `Consol`** (`/usr/share/color-schemes/Consol.colors`): verde sobre preto em janelas, botões e seleções; aplicado systemwide via `/etc/xdg/kdeglobals` (ícones Breeze Dark, Plasma Dark)
+- **Papel de parede `Consol`** (`/usr/share/wallpapers/Consol/`): arcos concêntricos + wordmark — 1920×1080, 2560×1440 e 1366×768
+- **Ícones do sistema**: `consol-os` em todas as escalas do hicolor
+- **Tela de login**: SDDM em tema escuro (`/etc/sddm.conf.d/consol.conf` → `breeze-dark`). Um tema 100% próprio (`/usr/share/sddm/themes/consol/`) está **incluído, porém desativado** até ser testado na VM — para ativá-lo: `Theme=consol` no mesmo arquivo e reinicie o SDDM
+- **Plymouth**: tema de boot `consol` incluído (`/usr/share/plymouth/themes/consol/`), **não ativado** por padrão. Para usar (depois dos testes): `sudo plymouth-set-default-theme -R consol`
+- **Big Picture**: a interface principal do dia a dia já é a do console (Steam Big Picture) — navegação 100% por controle, sem mouse
+- **RecompLauncher e RetroDECK** têm modos de tela cheia próprios orientados a controle
 
 Para trocar o visual depois: Configurações do Sistema → Aparência (global/cor) ou remova `/etc/xdg/kdeglobals` para voltar ao padrão do Bazzite.
 
-Assets próprios: `generate_branding.py` (wallpaper + ícone) — rode-o com Python + Pillow para gerar variações.
+Assets: masters em `brand/` (SVG); derivar PNGs usados no build quando atualizar o master. Antes de publicar, recomenda-se pesquisa de conflito de marca (ver `brand/docs/README.md`).
 
 ## Roadmap
 
 - [x] **v0.1** — imagem bootc baseada em bazzite-nvidia, RecompLauncher empacotado com SHA-256, RetroArch RPM, autostart Big Picture, ISO via CI
-- [ ] **v0.2** — branding (os-release, logo, SDDM theme), KDE defaults orientados a controle, ícones próprios
+- [ ] **v0.2** — branding completo no sistema (os-release "Consol OS", nome no KDE), SDDM e Plymouth próprios ativados após teste na VM, defaults KDE orientados a controle
 - [ ] **v0.3** — RetroDECK pré-instalado também via módulo do image (não só kickstart), análise `bootc container lint` limpo
 - [ ] **v0.4** — Flatpak do RecompLauncher (quando for publicado no Flathub) no lugar da AppImage
 - [ ] **v1.0** — ISO assinada (cosign), documentação de instalação completa, release pública

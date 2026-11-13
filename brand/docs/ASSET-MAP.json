@@ -1,0 +1,27 @@
+{
+  "identity": "Consol OS Nexus v0.1",
+  "colors": {
+    "primary": "#107C10",
+    "highlight": "#9BF00B",
+    "background": "#0A0A0A",
+    "secondary_background": "#161616",
+    "text": "#EEEEEE",
+    "secondary_text": "#8ED08E"
+  },
+  "assets": {
+    "logo_symbol": "01-logo/svg/consol-symbol-color-512.svg",
+    "logo_symbol_white": "01-logo/svg/consol-symbol-white-512.svg",
+    "wordmark": "01-logo/svg/consol-wordmark-horizontal.svg",
+    "wallpaper": "02-wallpapers/png/consol-wallpaper-1920x1080.png",
+    "app_icon": "03-app-icon/png/consol-app-icon-512.png",
+    "readme_banner": "04-github/png/consol-readme-banner-1600x500.png",
+    "sddm": "05-boot-login/png/consol-sddm-background-1920x1080.png",
+    "plymouth_watermark": "05-boot-login/png/consol-plymouth-watermark-200.png",
+    "plymouth_progress_empty": "05-boot-login/png/consol-plymouth-progress-empty-400x8.png",
+    "plymouth_progress_full": "05-boot-login/png/consol-plymouth-progress-full-400x8.png",
+    "anaconda_sidebar": "06-installer/png/consol-anaconda-sidebar-600x800.png",
+    "social_preview": "07-platforms/png/consol-social-preview-1280x640.png",
+    "avatar": "07-platforms/png/consol-avatar-460.png",
+    "appstream_icon": "07-platforms/png/consol-appstream-metainfo-512.png"
+  }
+}

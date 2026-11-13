@@ -1,0 +1,7 @@
+[SddmGreeterTheme]
+Name=Consol
+Description=Tema escuro do Consol OS (inspirado em consoles)
+Author=amplidev-apps
+Type=sddm-theme
+Version=1.0
+Website=https://github.com/amplidev-apps/consol-os

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080"><defs><linearGradient id="base" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#0A0A0A"/><stop offset="1" stop-color="#161616"/></linearGradient>
+ <radialGradient id="halo"><stop stop-color="#107C10" stop-opacity=".27"/><stop offset=".55" stop-color="#107C10" stop-opacity=".09"/><stop offset="1" stop-color="#107C10" stop-opacity="0"/></radialGradient>
+ <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#8ED08E" stroke-opacity=".085" stroke-width="1"/></pattern>
+ <linearGradient id="ridge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9BF00B"/><stop offset="1" stop-color="#107C10"/></linearGradient></defs><rect width="1920" height="1080" fill="url(#base)"/><rect width="1920" height="1080" fill="url(#grid)"/><ellipse cx="1766.4" cy="529.2" rx="1015.1999999999999" ry="1015.1999999999999" fill="url(#halo)"/><circle cx="1766.4" cy="529.2" r="637.2" fill="none" stroke="#107C10" stroke-width="6" stroke-opacity="0.32" stroke-dasharray="777 518" transform="rotate(-35 1766.4 529.2)"/><circle cx="1766.4" cy="529.2" r="516.1" fill="none" stroke="#9BF00B" stroke-width="6" stroke-opacity="0.21" stroke-dasharray="777 518" transform="rotate(-35 1766.4 529.2)"/><circle cx="1766.4" cy="529.2" r="395.1" fill="none" stroke="#107C10" stroke-width="6" stroke-opacity="0.14" stroke-dasharray="777 518" transform="rotate(-35 1766.4 529.2)"/>
+ <path d="M0 950.4 L1920 950.4" stroke="#8ED08E" stroke-width="1" stroke-opacity=".16"/><g transform="translate(230.39999999999998 907.1999999999999) scale(0.75600000)" fill="none" stroke-linejoin="round">
+   <path d="M -87 -24 C -76 -72 -42 -91 0 -91 C 43 -91 77 -70 88 -24" stroke="#9BF00B" stroke-width="23" stroke-linecap="butt"/>
+   <path d="M 88 24 C 77 70 43 91 0 91 C -43 91 -76 72 -87 24" stroke="#107C10" stroke-width="23" stroke-linecap="butt"/>
+   <path d="M -56 -17 C -47 -44 -26 -56 0 -56 C 27 -56 47 -43 56 -17" stroke="#107C10" stroke-width="15" stroke-linecap="butt"/>
+   <path d="M 56 17 C 47 44 26 56 0 56 C -26 56 -47 43 -56 17" stroke="#9BF00B" stroke-width="15" stroke-linecap="butt"/>
+   <rect x="-17" y="-17" width="34" height="34" rx="5" transform="rotate(45)" fill="#9BF00B" stroke="none"/>
+   </g></svg>
